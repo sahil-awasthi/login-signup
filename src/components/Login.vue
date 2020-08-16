@@ -29,24 +29,23 @@ export default {
     };
   },
   methods: {
-    onLogin(e) {
+    async onLogin(e) {
+      const userInfo = {
+        email: this.email,
+        password: this.password,
+      };
+
       e.preventDefault();
-      axios({
-        method: "POST",
-        url: "https://reqres.in/api/login",
-        data: {
-          email: this.email,
-          password: this.password,
-        },
-      })
-        .then((result) => {
-          localStorage.setItem("token", result.data.token);
-          window.location.replace("/");
-        })
-        .catch((error) => {
-          alert(error.response.data.error);
-        });
+      try {
+        const result = await axios.post("https://reqres.in/api/login", userInfo);
+        localStorage.setItem("token", result.data.token);
+        window.location.replace("/");
+        console.log(result.data.token);
+      } catch (error) {
+        alert(error.response.data.error);
+      }
     },
+
     onSignUp() {
       const currentPath = window.location.pathname;
       if (currentPath !== "/signup") {

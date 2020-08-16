@@ -26,24 +26,19 @@ export default {
     };
   },
   methods: {
-    onSignUp(e) {
+    async onSignUp(e) {
+      const userInfo = {
+        email: this.email,
+        password: this.password,
+      };
       e.preventDefault();
-      axios({
-        method: "POST",
-        url: "https://reqres.in/api/register",
-        data: {
-          email: this.email,
-          password: this.password,
-        },
-      })
-      .then((result) => {
-          alert("You are registered!")
-          console.log(result)
-          window.location.replace("./login")
-      })
-      .catch((error) => {
-          alert(error.response.data.error)
-      });
+      try {
+        await axios.post("https://reqres.in/api/register", userInfo);
+        alert("You are registered!")
+        window.location.replace("./login")
+      } catch (error) {
+        alert(error.response.data.error);
+      }
     },
   },
 };
