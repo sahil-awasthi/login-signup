@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <Header />
+    <app-header />
     <h2>Login</h2>
     <form class="login-form">
       <input type="text" v-model="email" name="email" placeholder="Email" />
@@ -14,14 +14,10 @@
 </template> 
 
 <script>
-import Header from "./Header.vue";
 import axios from "axios";
 
 export default {
   name: "Login",
-  components: {
-    Header,
-  },
   data() {
     return {
       email: "",
